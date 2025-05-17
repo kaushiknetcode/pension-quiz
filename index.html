@@ -165,12 +165,12 @@ const questions = [
             {
                 text: "Prefer a balance of some risk and some safety",
                 score: -1,
-                description: "Mild NPS lean: This suggests openness to market-linked returns but with some stability desire."
+                description: "Mild NPS lean: This suggests openness to market-linked returns but also a desire for some stability, which NPS offers through varied investment choices but with the risk still on the individual."
             },
             {
                 text: "Prefer a system that aims for a predictable amount, even if returns are modest",
                 score: 1,
-                description: "Mild UPS lean: This shows a preference for predictability, a core aim of UPS."
+                description: "Mild UPS lean: This shows a preference for predictability, a core aim of UPS which offers an assured pension component."
             },
             {
                 text: "Strongly prefer safety and a guaranteed outcome for my pension",
@@ -179,7 +179,481 @@ const questions = [
             }
         ]
     },
-    // Your other questions here
+    {
+        text: "Regarding how my final pension is decided, I would prefer it to be:",
+        options: [
+            {
+                text: "Based on how well my chosen investments perform in the market",
+                score: -2,
+                description: "Strong NPS lean: This preference for market-linked outcomes and investment control is central to NPS."
+            },
+            {
+                text: "Mostly market-linked, but with some standard safer investment options",
+                score: -1,
+                description: "Mild NPS lean: This suggests comfort with market forces but with a preference for some guided, safer choices, available within the NPS framework."
+            },
+            {
+                text: "A combination of my fund's performance and a government assurance for a basic amount",
+                score: 1,
+                description: "Mild UPS lean: This aligns with the hybrid model of UPS, where an individual's fund is supplemented by a government guarantee."
+            },
+            {
+                text: "Based on a set formula, like a percentage of my salary, with a government guarantee",
+                score: 2,
+                description: "Strong UPS lean: This indicates a clear preference for a defined-benefit style pension, which UPS aims to provide."
+            }
+        ]
+    },
+    {
+        text: "Concerning the government's contribution to my pension, I feel better if:",
+        options: [
+            {
+                text: "It's a fixed percentage directly added to my personal pension fund, growing with the market",
+                score: -2,
+                description: "Strong NPS lean: This reflects the standard NPS model where the government's defined contribution goes into the individual's account and is subject to market growth."
+            },
+            {
+                text: "It goes into my fund, and there's also a backup plan by the government to ensure a certain pension level",
+                score: -1,
+                description: "Mild NPS lean: While seeking some security, this still emphasizes individual fund growth, more aligned with NPS philosophy."
+            },
+            {
+                text: "Part of it builds my fund, and the government also commits to make up any shortfall for a promised pension",
+                score: 2,
+                description: "Strong UPS lean: This accurately describes the UPS mechanism where government contribution is combined with a commitment to bridge any gap for the assured pension."
+            },
+            {
+                text: "The exact way it's contributed is less important than the final promise of a specific pension amount",
+                score: 2,
+                description: "Strong UPS lean: This prioritizes the guaranteed outcome of UPS over the mechanics of contribution."
+            }
+        ]
+    },
+    {
+        text: "If I were to pass away after retirement, for my family I would prefer:",
+        options: [
+            {
+                text: "They receive the remaining pension money based on options I chose earlier",
+                score: -1,
+                description: "Mild NPS lean: This describes NPS, where family benefits depend on the annuity option selected by the subscriber."
+            },
+            {
+                text: "My spouse receives a regular, predictable pension amount",
+                score: 1,
+                description: "Mild UPS lean: This leans towards the structured family pension aspect of UPS."
+            },
+            {
+                text: "They receive a good lump sum from my pension savings",
+                score: -2,
+                description: "Strong NPS lean: Prioritizing a lump-sum from accumulated savings aligns more with how NPS corpus can be used by nominees."
+            },
+            {
+                text: "A guaranteed, regular pension for my spouse is the most important thing",
+                score: 2,
+                description: "Strong UPS lean: This strongly favors the defined and guaranteed family pension that is a key feature of UPS."
+            }
+        ]
+    },
+    {
+        text: "Regarding my pension keeping up with the cost of living (inflation) after I retire:",
+        options: [
+            {
+                text: "I trust that good investment returns over time will help manage inflation",
+                score: -2,
+                description: "Strong NPS lean: This reflects confidence in market-linked returns to outpace inflation, without needing a specific inflation-linking mechanism."
+            },
+            {
+                text: "I'd like some protection, but I can also manage it myself with my savings",
+                score: -1,
+                description: "Mild NPS lean: This shows openness to self-management of inflation risk, more aligned with NPS flexibility."
+            },
+            {
+                text: "It's important that my pension is regularly increased to cover rising costs",
+                score: 1,
+                description: "Mild UPS lean: This indicates a preference for built-in inflation protection, which UPS aims to provide through DR."
+            },
+            {
+                text: "I want my pension to include automatic increases for inflation (like Dearness Relief)",
+                score: 2,
+                description: "Strong UPS lean: This highlights DR as a critical factor, a defining benefit of UPS."
+            }
+        ]
+    },
+    {
+        text: "When I retire, I'd prefer to access my pension savings by:",
+        options: [
+            {
+                text: "Taking a large part as a tax-free lump sum and the rest as a monthly pension",
+                score: -2,
+                description: "Strong NPS lean: This matches the standard NPS rule of allowing up to 60% lump-sum withdrawal (tax-free)."
+            },
+            {
+                text: "Getting a smaller lump sum, with most of it going towards a guaranteed monthly pension",
+                score: 1,
+                description: "Mild UPS lean: This prioritizes the guaranteed pension aspect of UPS."
+            },
+            {
+                text: "Receiving a guaranteed monthly pension plus a separate, additional lump sum based on my service",
+                score: 2,
+                description: "Strong UPS lean: This reflects UPS's structure of providing both assured pension and service-based lump sum."
+            },
+            {
+                text: "Prioritizing the highest possible guaranteed monthly pension, even with a small or no lump sum",
+                score: 1,
+                description: "Mild UPS lean: This emphasizes the guaranteed pension stream which is central to UPS."
+            }
+        ]
+    },
+    {
+        text: "If I might leave government service early (before full retirement age), I'd want my pension plan to:",
+        options: [
+            {
+                text: "Be easy to take with me and continue in another job",
+                score: -2,
+                description: "Strong NPS lean: NPS accounts are designed to be portable across different sectors and employers."
+            },
+            {
+                text: "Allow me to take out my savings as per the rules",
+                score: -1,
+                description: "Mild NPS lean: NPS offers more flexibility for withdrawal on premature exit."
+            },
+            {
+                text: "Still give me some form of guaranteed pension, even if smaller",
+                score: 1,
+                description: "Mild UPS lean: UPS may offer proportionate assured payouts for those who complete minimum qualifying service."
+            },
+            {
+                text: "My main aim is to complete service for full benefits; early exit options are less critical",
+                score: 2,
+                description: "Strong UPS lean: This perspective prioritizes completing service for the full UPS benefit."
+            }
+        ]
+    },
+    {
+        text: "If I need to withdraw some money from my pension fund for major needs during my service:",
+        options: [
+            {
+                text: "I'd prefer this not to affect any future fixed pension amount that is promised to me",
+                score: 1,
+                description: "Mild UPS lean: Ideally, one would want withdrawals not to affect a guarantee. While UPS allows partial withdrawals, they can impact the benchmark corpus calculation."
+            },
+            {
+                text: "I accept that taking money out will likely reduce my final market-linked pension amount",
+                score: -2,
+                description: "Strong NPS lean: In NPS, partial withdrawals directly reduce the corpus that grows with the market, thus affecting the final pension."
+            },
+            {
+                text: "I understand withdrawals might affect how much the government needs to top up for my assured pension",
+                score: 2,
+                description: "Strong UPS lean: This accurately reflects that under UPS, partial withdrawals can influence the Benchmark Corpus and the government's top-up needed."
+            },
+            {
+                text: "I'd rather not touch my pension fund before retirement to get the maximum possible pension",
+                score: 1,
+                description: "Mild UPS lean: This cautious approach aligns slightly more with a UPS mindset focused on the ultimate defined benefit."
+            }
+        ]
+    },
+    {
+        text: "Regarding how sure I want to be about my pension amount, I'd be most comfortable if:",
+        options: [
+            {
+                text: "I have a good idea of what I might get, based on expected market growth",
+                score: -2,
+                description: "Strong NPS lean: This describes the NPS scenario where pension outcomes are based on market performance, and any figures are estimates, not guarantees."
+            },
+            {
+                text: "I know there's a definite minimum pension I'll get after a certain service period",
+                score: 2,
+                description: "Strong UPS lean: UPS is designed to provide an assured payout, which can include a guaranteed minimum pension after meeting qualifying service conditions."
+            },
+            {
+                text: "My main pension grows with the market, but there's also a small guaranteed part",
+                score: -1,
+                description: "Mild NPS lean: This could describe an NPS strategy with a conservative investment mix aiming for some stability."
+            },
+            {
+                text: "The scheme clearly tells me a formula (like % of salary) that will decide my pension",
+                score: 2,
+                description: "Strong UPS lean: A preference for a formula-based, predictable pension is a core characteristic of UPS."
+            }
+        ]
+    },
+    {
+        text: "If I serve for, say, 15 years (which is more than the minimum 10, but less than 25 for full benefit):",
+        options: [
+            {
+                text: "My pension should be based only on how much money has built up in my account",
+                score: -2,
+                description: "Strong NPS lean: This is how NPS typically works; the pension is based on the accumulated corpus and annuity rates."
+            },
+            {
+                text: "I expect a guaranteed pension that's adjusted for my actual years of service",
+                score: 2,
+                description: "Strong UPS lean: UPS rules generally allow for a proportionately reduced assured pension if minimum qualifying service is met."
+            },
+            {
+                text: "I'd get whatever pension my total savings can buy me from the market",
+                score: -1,
+                description: "Mild NPS lean: Similar to option A, this emphasizes the market-dependent outcome of NPS."
+            },
+            {
+                text: "I worry I might lose special pension benefits for not completing the full term",
+                score: 1,
+                description: "Mild UPS lean: This expresses a concern that a scheme like UPS is designed to alleviate by offering proportionate benefits."
+            }
+        ]
+    },
+    {
+        text: "Who do I think should mainly bear the risk of investments for my pension?",
+        options: [
+            {
+                text: "I am okay with taking the investment risk myself for a chance at better returns",
+                score: -2,
+                description: "Strong NPS lean: In NPS, the individual subscriber bears the investment risk in exchange for potential higher returns."
+            },
+            {
+                text: "I prefer the government to take on the risk to ensure I get a definite pension amount",
+                score: 2,
+                description: "Strong UPS lean: UPS is structured such that the government underwrites the risk to ensure the assured pension."
+            },
+            {
+                text: "I'm okay with market risk for my fund, but with a government promise to make up any big shortfall",
+                score: 2,
+                description: "Strong UPS lean: This describes the UPS mechanism where the government steps in if it's insufficient for the assured pension."
+            },
+            {
+                text: "I expect professional fund managers to handle risk, but I know it's still market-dependent",
+                score: -1,
+                description: "Mild NPS lean: While NPS has fund managers, the ultimate investment risk and reward rest with the subscriber."
+            }
+        ]
+    },
+    {
+        text: "When I first joined Railways (after Jan 2004, before UPS was an option), my pension understanding was:",
+        options: [
+            {
+                text: "I thought I was in the Old Pension Scheme",
+                score: 1,
+                description: "Mild UPS lean: This is factually incorrect for post-2004 joiners but reflects a desire that might make the guaranteed nature of UPS appealing."
+            },
+            {
+                text: "I knew I was in a new system (NPS) where my pension depends on contributions and market returns",
+                score: -2,
+                description: "Strong NPS lean: This reflects the correct factual situation for Central Government employees joining on or after Jan 1, 2004."
+            },
+            {
+                text: "I thought I had a choice between old and new pension systems from the start",
+                score: 1,
+                description: "Mild UPS lean: Factually incorrect, but the desire for such a choice might make UPS attractive."
+            },
+            {
+                text: "I knew about NPS but was hoping for a more guaranteed system to be introduced later",
+                score: 1,
+                description: "Mild UPS lean: This indicates an awareness of NPS but a latent preference for a scheme with guarantees like UPS."
+            }
+        ]
+    },
+    {
+        text: "How do I feel about my pension money being 'locked-in' until retirement?",
+        options: [
+            {
+                text: "It's fine if it means a larger retirement fund, with limited early access",
+                score: 1,
+                description: "Mild UPS lean: Both systems involve lock-in. The focus on a larger fund for a purpose implies guarantee leans slightly to UPS."
+            },
+            {
+                text: "I'd prefer to be able to take out a large sum at retirement, even if the monthly pension is smaller",
+                score: -2,
+                description: "Strong NPS lean: NPS allows a significant lump-sum withdrawal (up to 60%), aligning with this preference for liquidity."
+            },
+            {
+                text: "A guaranteed lifetime pension is most important, so locking in funds for that is acceptable",
+                score: 2,
+                description: "Strong UPS lean: This prioritizes the guaranteed pension stream over immediate large lump-sum access."
+            },
+            {
+                text: "I'd prefer rules that allow full withdrawal in specific early situations, not just partial",
+                score: -1,
+                description: "Mild NPS lean: NPS has rules for premature exit and withdrawal of the corpus under certain conditions."
+            }
+        ]
+    },
+    {
+        text: "My attitude towards managing my pension investments (like choosing funds) is:",
+        options: [
+            {
+                text: "I want to actively choose and manage my investments for the best possible growth",
+                score: -2,
+                description: "Strong NPS lean: NPS provides active choice for investment allocation and selection of Pension Fund Managers."
+            },
+            {
+                text: "I prefer a standard, well-managed investment option without needing to make choices",
+                score: -1,
+                description: "Mild NPS lean: NPS offers a default Auto Choice for those who prefer not to actively manage."
+            },
+            {
+                text: "I prefer investments to be managed mainly to ensure a fixed pension, not just for high growth",
+                score: 2,
+                description: "Strong UPS lean: UPS, by aiming for an assured outcome, implies investment management is geared towards this guarantee."
+            },
+            {
+                text: "Safety of my money and a basic return are more important to me than chasing high growth",
+                score: 1,
+                description: "Mild UPS lean: Prioritizing capital safety and basic returns over aggressive growth aligns with the security aspect that UPS offers."
+            }
+        ]
+    },
+    {
+        text: "If I take Voluntary Retirement (VRS) after 25 years of service, I'd want my pension to:",
+        options: [
+            {
+                text: "Be available based on my total accumulated savings at that point, as per scheme rules",
+                score: -2,
+                description: "Strong NPS lean: This aligns with typical NPS exit rules, where benefits are based on the accumulated corpus at the time of VRS."
+            },
+            {
+                text: "Ensure I still get the 'assured pension' as per UPS rules, even if it starts later",
+                score: 2,
+                description: "Strong UPS lean: For VRS after 25 years under UPS, the assured pension is deferred to the normal superannuation date."
+            },
+            {
+                text: "Allow me to take out all my accumulated money as a lump sum right away",
+                score: -1,
+                description: "Mild NPS lean: NPS offers more flexibility for lump-sum withdrawal on exit compared to a system focused on a deferred assured pension."
+            },
+            {
+                text: "Give me a reduced, but still guaranteed, pension starting immediately",
+                score: 1,
+                description: "Mild UPS lean: While UPS in some cases defers pension on VRS, the desire for an immediate assured pension leans towards the UPS concept."
+            }
+        ]
+    },
+    {
+        text: "The idea of the government using a 'Benchmark Corpus' to calculate any top-up needed for my assured pension makes me feel:",
+        options: [
+            {
+                text: "It seems complicated; I prefer my pension to be based just on my own fund's actual value",
+                score: -2,
+                description: "Strong NPS lean: This reflects a preference for the straightforward market-linked outcome of NPS, without additional calculation layers."
+            },
+            {
+                text: "It's good, as it means the government will ensure my pension if my fund is low",
+                score: 2,
+                description: "Strong UPS lean: This view sees the Benchmark Corpus as a key part of the UPS guarantee, providing reassurance."
+            },
+            {
+                text: "I don't mind it, as long as I can still choose how my own money is invested",
+                score: -1,
+                description: "Mild NPS lean: This indicates indifference to a guarantee mechanism and a primary focus on investment choice."
+            },
+            {
+                text: "It sounds like a good safety net from the government",
+                score: 1,
+                description: "Mild UPS lean: Viewing it as a positive safety net aligns with the security-focused appeal of UPS."
+            }
+        ]
+    },
+    {
+        text: "When I think about the government's financial role in pensions, I believe it should:",
+        options: [
+            {
+                text: "Mainly help set up a good system with shared contributions, with final pension tied to market returns",
+                score: -2,
+                description: "Strong NPS lean: This supports the defined-contribution, market-linked philosophy of NPS."
+            },
+            {
+                text: "Be responsible for providing a secure, defined pension for its employees",
+                score: 2,
+                description: "Strong UPS lean: This reflects a strong belief in the government's role in providing defined and secure pension benefits."
+            },
+            {
+                text: "Offer a mix: help with market-linked savings but also guarantee a minimum pension",
+                score: 1,
+                description: "Mild UPS lean: This acknowledges the hybrid nature of UPS, combining market-linked elements with government-backed assurance."
+            },
+            {
+                text: "Encourage individual savings with market returns, with less direct government liability",
+                score: -2,
+                description: "Strong NPS lean: This emphasizes individual responsibility and market reliance, aligning with the NPS model."
+            }
+        ]
+    },
+    {
+        text: "If choosing between NPS and UPS is a one-time, permanent decision, I would:",
+        options: [
+            {
+                text: "Be hesitant to lock into a guaranteed but possibly lower-return scheme permanently",
+                score: -2,
+                description: "Strong NPS lean: This shows a preference for flexibility and market potential, making one wary of an irrevocable switch."
+            },
+            {
+                text: "Confidently choose the guaranteed scheme if it offers better long-term security",
+                score: 2,
+                description: "Strong UPS lean: This indicates that if UPS provides the desired security, its irrevocable nature is acceptable."
+            },
+            {
+                text: "Need a lot of information and comparison before making a permanent choice",
+                score: -1,
+                description: "Mild NPS lean: The implicit concern about losing flexibility might subtly lean towards valuing NPS features."
+            },
+            {
+                text: "Prefer to lock in the guaranteed pension (UPS) for peace of mind",
+                score: 2,
+                description: "Strong UPS lean: This views the permanent nature of the choice as a way to secure the benefits of UPS definitively."
+            }
+        ]
+    },
+    {
+        text: "Regarding taxes on my pension:",
+        options: [
+            {
+                text: "I prefer a large tax-free lump sum at retirement, even if the monthly pension is taxed",
+                score: -2,
+                description: "Strong NPS lean: NPS allows a significant portion (up to 60%) of the corpus to be withdrawn tax-free at superannuation."
+            },
+            {
+                text: "My main focus is a guaranteed pension that's protected from inflation; I accept it will be taxed",
+                score: 1,
+                description: "Mild UPS lean: This prioritizes the core benefit of UPS (guaranteed, inflation-protected pension)."
+            },
+            {
+                text: "I'm looking for the best overall tax benefits across contributions, growth, and pension",
+                score: -1,
+                description: "Mild NPS lean: NPS offers specific deductions during the contribution phase which are well-publicized."
+            },
+            {
+                text: "Tax details are less important to me than knowing my pension amount is guaranteed",
+                score: 2,
+                description: "Strong UPS lean: This clearly indicates that the predictability and guarantee offered by UPS are paramount."
+            }
+        ]
+    },
+    {
+        text: "My overall feeling about my retirement income should be one of:",
+        options: [
+            {
+                text: "Optimism about good market growth building my pension fund",
+                score: -2,
+                description: "Strong NPS lean: This reflects confidence in market-linked schemes like NPS and a higher risk appetite."
+            },
+            {
+                text: "Balance – some market growth potential, but with a solid basic pension guaranteed",
+                score: 1,
+                description: "Mild UPS lean: This preference for a balanced approach aligns well with the hybrid design of UPS."
+            },
+            {
+                text: "Security – knowing a definite, government-backed pension amount is assured each month",
+                score: 2,
+                description: "Strong UPS lean: This strongly emphasizes the desire for a secure, predictable, government-backed pension."
+            },
+            {
+                text: "Protection – avoiding any risk of my pension being hit hard by market slumps",
+                score: 2,
+                description: "Strong UPS lean: This highlights a strong aversion to market risk affecting pension income."
+            }
+        ]
+    }
 ];
 
 let currentQuestion = 0;
