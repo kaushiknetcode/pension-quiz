@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPS vs UPS Preference Quiz</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .option-button {
+            transition: all 0.3s ease;
+        }
+        .option-button:hover {
+            transform: translateX(10px);
+        }
+        .meter-container {
+            position: relative;
+            height: 30px;
+            background: #f3f4f6;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .meter-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, #3b82f6, #fbbf24, #ef4444);
+        }
+        .meter-pointer {
+            position: absolute;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: black;
+            transform: translateX(-50%);
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Quiz Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Pension Scheme Preference Quiz</h1>
+            <p class="text-gray-600">Find out whether NPS or UPS might better suit your preferences</p>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="bg-white rounded-lg shadow-lg p-6">
+            <!-- Question Section -->
+            <div id="question-section" class="mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="question-number" class="text-xl font-semibold text-gray-800">Question 1 of 20</h2>
+                    <span id="progress-text" class="text-gray-500">Progress: 5%</span>
+                </div>
+                <p id="question-text" class="text-lg text-gray-700 mb-6"></p>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between items-center mt-6">
+                <button id="back-button" 
+                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+                    Back
+                </button>
+                <div class="w-full max-w-xs mx-4 bg-gray-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section (Hidden initially) -->
+        <div id="results-section" class="bg-white rounded-lg shadow-lg p-6 mt-8 hide">
+            <h2 class="text-2xl font-bold mb-6 text-center">Your Pension Scheme Preference Results</h2>
+            
+            <!-- Meter -->
+            <div class="mb-8">
+                <div class="meter-container">
+                    <div class="meter-gradient"></div>
+                    <div id="meter-pointer" class="meter-pointer" style="left: 50%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-sm font-medium">
+                    <span class="text-blue-600">Strong NPS Preference</span>
+                    <span class="text-yellow-600">Balanced</span>
+                    <span class="text-red-600">Strong UPS Preference</span>
+                </div>
+            </div>
+
+            <div id="results-text" class="mb-8">
+                <h3 id="preference-heading" class="text-xl font-bold mb-2"></h3>
+                <p id="preference-description" class="text-gray-600"></p>
+            </div>
+
+            <div id="detailed-analysis" class="mt-8">
+                <h3 class="text-xl font-bold mb-4">Detailed Analysis of Your Answers</h3>
+                <div id="answers-container" class="space-y-4"></div>
+            </div>
+
+            <button id="restart-button" 
+                class="mt-8 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors mx-auto block">
+                Take Quiz Again
+            </button>
+        </div>
+    </div>
+
+    <script>
+const questions = [
+    {
+        text: "When I think about investment risk for my pension, I generally:",
+        options: [
+            {
+                text: "Am comfortable with higher risk for potentially higher returns",
+                score: -2,
+                description: "Strong NPS lean: Choosing this indicates comfort with market volatility for higher potential growth, a key aspect of NPS."
+            },
+            {
+                text: "Prefer a balance of some risk and some safety",
+                score: -1,
+                description: "Mild NPS lean: This suggests openness to market-linked returns but with some stability desire."
+            },
+            {
+                text: "Prefer a system that aims for a predictable amount, even if returns are modest",
+                score: 1,
+                description: "Mild UPS lean: This shows a preference for predictability, a core aim of UPS."
+            },
+            {
+                text: "Strongly prefer safety and a guaranteed outcome for my pension",
+                score: 2,
+                description: "Strong UPS lean: This expresses a strong desire for security and guaranteed pension, which is the main promise of UPS."
+            }
+        ]
+    },
+    {
+        text: "Regarding how my final pension is decided, I would prefer it to be:",
+        options: [
+            {
+                text: "Based on how well my chosen investments perform in the market",
+                score: -2,
+                description: "Strong NPS lean: This reflects preference for market-linked outcomes and investment control in NPS."
+            },
+            {
+                text: "Mostly market-linked, but with some standard safer investment options",
+                score: -1,
+                description: "Mild NPS lean: Shows comfort with market forces but desire for some guided choices."
+            },
+            {
+                text: "A combination of my fund's performance and a government assurance for a basic amount",
+                score: 1,
+                description: "Mild UPS lean: Aligns with UPS's hybrid model of market exposure with guarantees."
+            },
+            {
+                text: "Based on a set formula, like a percentage of my salary, with a government guarantee",
+                score: 2,
+                description: "Strong UPS lean: Strongly favors UPS's defined-benefit style approach."
+            }
+        ]
+    },
+    // I'll provide more questions in the next part to keep this manageable
+];
+
+let currentQuestion = 0;
+let answers = [];
+
+// Initialize quiz
+function initializeQuiz() {
+    displayQuestion();
+    updateProgress();
+    document.getElementById('back-button').addEventListener('click', goBack);
+    document.getElementById('restart-button').addEventListener('click', restartQuiz);
+}
+
+// Display current question
+function displayQuestion() {
+    const question = questions[currentQuestion];
+    document.getElementById('question-text').textContent = question.text;
+    document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'option-button w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors';
+        button.textContent = option.text;
+        button.addEventListener('click', () => handleAnswer(option));
+        optionsContainer.appendChild(button);
+    });
+}
+
+// Handle answer selection
+function handleAnswer(option) {
+    answers[currentQuestion] = {
+        questionText: questions[currentQuestion].text,
+        selectedOption: option.text,
+        score: option.score,
+        description: option.description
+    };
+
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+        updateProgress();
+    } else {
+        showResults();
+    }
+}
+
+// Update progress indicators
+function updateProgress() {
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    document.getElementById('progress-bar').style.width = `${progress}%`;
+    document.getElementById('progress-text').textContent = `Progress: ${Math.round(progress)}%`;
+    document.getElementById('back-button').disabled = currentQuestion === 0;
+}
+
+// Calculate final score
+function calculateScore() {
+    const totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
+    const maxPossible = questions.length * 2;
+    const minPossible = questions.length * -2;
+    const normalizedScore = ((totalScore - minPossible) / (maxPossible - minPossible)) * 100;
+    return {
+        raw: totalScore,
+        normalized: normalizedScore
+    };
+}
+
+// Show results
+function showResults() {
+    document.getElementById('quiz-container').classList.add('hide');
+    document.getElementById('results-section').classList.remove('hide');
+    
+    const score = calculateScore();
+    document.getElementById('meter-pointer').style.left = `${score.normalized}%`;
+    
+    const preferenceHeading = document.getElementById('preference-heading');
+    const preferenceDescription = document.getElementById('preference-description');
+    
+    if (score.normalized < 30) {
+        preferenceHeading.textContent = "Strong Preference for NPS";
+        preferenceDescription.textContent = "Your answers indicate a strong alignment with the National Pension System's features.";
+    } else if (score.normalized < 45) {
+        preferenceHeading.textContent = "Moderate Preference for NPS";
+        preferenceDescription.textContent = "You show a slight inclination towards NPS features while valuing some aspects of both systems.";
+    } else if (score.normalized > 70) {
+        preferenceHeading.textContent = "Strong Preference for UPS";
+        preferenceDescription.textContent = "Your answers strongly align with the Unified Pension Scheme's guaranteed benefits approach.";
+    } else if (score.normalized > 55) {
+        preferenceHeading.textContent = "Moderate Preference for UPS";
+        preferenceDescription.textContent = "You show a slight inclination towards UPS features while appreciating aspects of both systems.";
+    } else {
+        preferenceHeading.textContent = "Balanced Preference";
+        preferenceDescription.textContent = "You show a balanced view of both pension systems, appreciating features of both NPS and UPS.";
+    }
+    
+    displayDetailedAnalysis();
+}
+
+// Display detailed analysis of answers
+function displayDetailedAnalysis() {
+    const container = document.getElementById('answers-container');
+    container.innerHTML = '';
+    
+    answers.forEach((answer, index) => {
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-gray-50 rounded-lg';
+        div.innerHTML = `
+            <p class="font-semibold mb-2">Question ${index + 1}: ${answer.questionText}</p>
+            <p class="text-gray-700">Your choice: ${answer.selectedOption}</p>
+            <p class="text-gray-600 mt-2">${answer.description}</p>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Go back to previous question
+function goBack() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
+        updateProgress();
+    }
+}
+
+// Restart quiz
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = [];
+    document.getElementById('results-section').classList.add('hide');
+    document.getElementById('quiz-container').classList.remove('hide');
+    displayQuestion();
+    updateProgress();
+}
+
+// Start the quiz when page loads
+window.addEventListener('load', initializeQuiz);
+</script>
+</body>
+</html>
