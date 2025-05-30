@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NPS vs UPS Preference Quiz</title>
+    <title>UPS Meter</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
+        /* Modern geometric background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.8;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Loading screen animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -26,43 +59,171 @@
 
         .option-button {
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .option-button:hover {
             transform: translateX(10px);
             background-color: #f3f4f6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-
-        .option-selected {
-            background-color: #dbeafe !important;
-            border-left: 4px solid #2563eb;
-        }
-
-        .meter-container {
-            position: relative;
-            height: 30px;
-            background: #f3f4f6;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .meter-gradient {
+        
+        .option-button::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to right, #3b82f6, #fbbf24, #ef4444);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .option-button:hover::after {
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
         }
 
-        .meter-pointer {
+        .option-selected {
+            background-color: #bfdbfe !important; /* Lighter blue for more contrast */
+            border-left: 5px solid #1d4ed8; /* Darker, thicker blue border */
+            color: #1e3a8a; /* Darker text for selected */
+        }
+
+        /* Sleek Gauge Meter Styles */
+        .gauge-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            margin: 30px auto 60px;
+            transform: translateZ(0);
+        }
+        
+        .gauge-bg {
             position: absolute;
-            top: -5px;
-            width: 4px;
-            height: 40px;
-            background: black;
+            width: 100%;
+            height: 100%;
+            border-radius: 150px 150px 0 0;
+            background: #f8fafc;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transform: translateZ(0);
+        }
+        
+        .gauge-color-arc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 150px 150px 0 0;
+            background: linear-gradient(to right, #2563eb, #60a5fa, #fca5a5, #ef4444); /* Blue (UPS) to Red (NPS) */
+            opacity: 0.85;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            transform: translateZ(0);
+        }
+        
+        /* Clean inner track */
+        .gauge-track {
+            position: absolute;
+            width: calc(100% - 30px);
+            height: calc(100% - 15px);
+            top: 7.5px;
+            left: 15px;
+            border-radius: 140px 140px 0 0;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            z-index: 2;
+            transform: translateZ(0);
+        }
+        
+        @keyframes gradientAnimation {
+            0% { opacity: 0.85; }
+            100% { opacity: 0.95; }
+        }
+        
+        .gauge-needle-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #1e40af;
+            border-radius: 50%;
             transform: translateX(-50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            z-index: 10;
+            transform: translateX(-50%) translateZ(0);
+        }
+        
+        .gauge-needle {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 3px;
+            height: 125px;
+            background: #1e40af;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(0deg);
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 5;
+            transform: translateX(-50%) rotate(0deg) translateZ(0);
+        }
+        
+        @keyframes bounce-needle {
+            0%, 100% { transform: translateX(-50%) rotate(var(--needle-angle)) translateZ(0); }
+            50% { transform: translateX(-50%) rotate(calc(var(--needle-angle) - 3deg)) translateZ(0); }
+        }
+        
+        .gauge-marks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 150px 150px 0 0;
+            z-index: 3;
+        }
+        
+        .gauge-mark {
+            position: absolute;
+            bottom: 7px;
+            left: 50%;
+            width: 4px;
+            height: 12px;
+            background: white;
+            opacity: 0.7;
+            border-radius: 2px;
+            transform-origin: bottom center;
+            transform: translateX(-50%) translateZ(0);
+        }
+        
+        .gauge-value {
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e40af;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            z-index: 10;
+            min-width: 70px;
+            text-align: center;
+            transform: translateX(-50%) translateZ(0);
+        }
+        
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 0 10px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         .hide {
@@ -72,23 +233,76 @@
         .question-transition {
             transition: all 0.3s ease-in-out;
         }
+        
+        /* Loading screen styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #1e40af, #7e22ce);
+            background-size: 200% 200%;
+            animation: gradientBG 3s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .loader-circle {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loader-text {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);" onload="document.body.classList.add('loaded')">
+    <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-50"></div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-circle"></div>
+        <div class="loader-text">UPS Meter Loading...</div>
+    </div>
+    
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Quiz Header -->
-        <div class="text-center mb-8 fade-in">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Pension Scheme Preference Quiz</h1>
-            <p class="text-gray-600">Find out whether NPS or UPS might better suit your preferences</p>
+        <div class="text-center mb-10 animate__animated animate__fadeInDown">
+            <h1 class="text-6xl font-bold mb-3" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">UPS Meter</h1>
+            <p class="text-gray-600 text-lg max-w-lg mx-auto animate__animated animate__fadeIn animate__delay-1s">Discover your ideal pension scheme preference with our interactive assessment tool</p>
+            <div class="flex justify-center mt-6 space-x-1">
+                <div class="w-3 h-3 bg-blue-500 rounded-full animate__animated animate__fadeInUp animate__delay-1s"></div>
+                <div class="w-3 h-3 bg-purple-500 rounded-full animate__animated animate__fadeInUp animate__delay-2s"></div>
+                <div class="w-3 h-3 bg-pink-500 rounded-full animate__animated animate__fadeInUp animate__delay-3s"></div>
+            </div>
         </div>
 
         <!-- Quiz Container -->
-        <div id="quiz-container" class="bg-white rounded-lg shadow-lg p-6">
+        <div id="quiz-container" class="bg-white/98 rounded-xl shadow-lg p-8 border-l-4 border-blue-600 transition-transform duration-300 transform">
             <!-- Question Section -->
             <div id="question-section" class="mb-8">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 id="question-number" class="text-xl font-semibold text-gray-800">Question 1 of 20</h2>
-                    <span id="progress-text" class="text-gray-500">Progress: 5%</span>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="question-number" class="text-xl font-semibold" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Question 1 of 20</h2>
+                    <span id="progress-text" class="text-gray-500 bg-gray-100 px-3 py-1 rounded-full text-sm font-medium">Progress: 5%</span>
                 </div>
                 <p id="question-text" class="text-lg text-gray-700 mb-6 question-transition"></p>
                 <div id="options-container" class="space-y-4"></div>
@@ -96,22 +310,28 @@
                 <!-- Next Button Container -->
                 <div id="next-button-container" class="mt-6 flex justify-end hide">
                     <button id="next-button" 
-                        class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors transform hover:scale-105 active:scale-95">
+                        class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95 font-medium shadow-md flex items-center">
                         Next Question
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
                     </button>
                 </div>
             </div>
 
             <!-- Navigation -->
-            <div class="flex justify-between items-center mt-6">
+            <div class="flex justify-between items-center mt-8">
                 <button id="back-button" 
-                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95"
+                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95 shadow-sm flex items-center"
                     disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
                     Back
                 </button>
-                <div class="w-full max-w-xs mx-4 bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                <div class="w-full max-w-xs mx-4 bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
                     <div id="progress-bar" 
-                        class="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" 
+                        class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-700 ease-out" 
                         style="width: 5%">
                     </div>
                 </div>
@@ -119,34 +339,46 @@
         </div>
 
         <!-- Results Section -->
-        <div id="results-section" class="bg-white rounded-lg shadow-lg p-6 mt-8 hide fade-in">
-            <h2 class="text-2xl font-bold mb-6 text-center">Your Pension Scheme Preference Results</h2>
+        <div id="results-section" class="bg-white/98 rounded-xl shadow-lg p-8 mt-8 hide border-l-4 border-blue-600 transition-transform duration-300 transform opacity-0">
+            <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Your Pension Scheme Preference Results</h2>
             
-            <!-- Meter -->
-            <div class="mb-8">
-                <div class="meter-container">
-                    <div class="meter-gradient"></div>
-                    <div id="meter-pointer" class="meter-pointer"></div>
+            <!-- Gauge Meter -->
+            <div class="mb-12 animate__animated animate__fadeIn animate__delay-1s">
+                <h3 class="text-xl font-bold mb-6 text-center" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Your Pension Preference Score</h3>
+                
+                <div class="gauge-container">
+                    <div class="gauge-bg"></div>
+                    <div class="gauge-color-arc"></div>
+                    <div class="gauge-track"></div>
+                    <div class="gauge-marks" id="gauge-marks"></div>
+                    <div class="gauge-needle-container">
+                        <div class="gauge-needle" id="gauge-needle"></div>
+                    </div>
+                    <div class="gauge-value" id="gauge-value">0</div>
                 </div>
-                <div class="flex justify-between mt-2 text-sm font-medium">
-                    <span class="text-blue-600">Strong NPS Preference</span>
-                    <span class="text-yellow-600">Balanced</span>
-                    <span class="text-red-600">Strong UPS Preference</span>
+                
+                <div class="gauge-labels flex justify-between px-10 mt-10 mb-2">
+                    <span class="font-bold text-blue-700">UPS</span>
+                    <span class="font-bold text-red-700">NPS</span>
                 </div>
             </div>
 
-            <div id="results-text" class="mb-8">
+            <div id="results-text" class="mb-8 bg-white/70 p-6 rounded-lg shadow-sm border border-gray-100 animate__animated animate__fadeIn animate__delay-2s">
                 <h3 id="preference-heading" class="text-xl font-bold mb-2"></h3>
                 <p id="preference-description" class="text-gray-600"></p>
             </div>
 
-            <div id="detailed-analysis" class="mt-8">
-                <h3 class="text-xl font-bold mb-4">Detailed Analysis of Your Answers</h3>
+            <div id="detailed-analysis" class="mt-10">
+                <h3 class="text-xl font-bold mb-6 animate__animated animate__fadeIn animate__delay-3s" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Detailed Analysis of Your Answers</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mb-6 animate__animated animate__fadeIn animate__delay-3s rounded-full"></div>
                 <div id="answers-container" class="space-y-4"></div>
             </div>
 
             <button id="restart-button" 
-                class="mt-8 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors mx-auto block transform hover:scale-105 active:scale-95">
+                class="mt-8 bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-all mx-auto block transform hover:scale-105 active:scale-95 font-medium shadow-md flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                </svg>
                 Take Quiz Again
             </button>
         </div>
@@ -661,69 +893,147 @@ let answers = [];
 let selectedOption = null;
 
 function handleAnswer(option) {
-    // Remove previous selection
-    document.querySelectorAll('.option-button').forEach(button => {
-        button.classList.remove('option-selected');
-    });
-    
-    // Add selection to clicked option
-    event.target.classList.add('option-selected');
     selectedOption = option;
     
-    // Show next button
-    document.getElementById('next-button-container').classList.remove('hide');
+    // Update UI to show selected option with optimized animations
+    const optionButtons = document.querySelectorAll('.option-button');
+    optionButtons.forEach(button => {
+        // Reset all buttons first
+        button.classList.remove('option-selected');
+        button.style.transition = 'all 0.3s ease';
+        button.style.transform = 'translateX(0)';
+        button.style.boxShadow = 'none';
+        
+        // Check if this button contains the selected option text
+        if (button.textContent.includes(option.text)) {
+            button.classList.add('option-selected'); // This class handles main selection style
+            button.style.transform = 'translateX(10px) scale(1.02)'; // Make it pop a bit more
+            button.style.boxShadow = '0 6px 12px rgba(37, 99, 235, 0.15)'; // Enhance shadow
+        }
+    });
+    
+    // Show next button with optimized animation
+    const nextButtonContainer = document.getElementById('next-button-container');
+    nextButtonContainer.classList.remove('hide');
+    nextButtonContainer.style.opacity = '0';
+    
+    requestAnimationFrame(() => {
+        nextButtonContainer.style.transition = 'opacity 0.3s ease';
+        nextButtonContainer.style.opacity = '1';
+    });
 }
 
 function goToNextQuestion() {
-    if (!selectedOption) return;
-
-    answers[currentQuestion] = {
-        questionText: questions[currentQuestion].text,
-        selectedOption: selectedOption.text,
-        score: selectedOption.score,
-        description: selectedOption.description
-    };
-
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        displayQuestion();
-        updateProgress();
-        
-        // Reset selection
-        selectedOption = null;
-        document.getElementById('next-button-container').classList.add('hide');
-    } else {
-        showResults();
+    if (!selectedOption) { 
+        // Optionally, provide feedback to the user here, e.g., a small shake animation or a message
+        // For now, just prevent proceeding if no option is selected.
+        console.warn("Next button clicked without selecting an option.");
+        return; 
     }
+    // Store answer with question index for easier lookup later
+    if (selectedOption) {
+        answers.push({
+            questionIndex: currentQuestion,
+            option: selectedOption 
+        });
+    }
+    
+    // Optimize transition between questions
+    const questionSection = document.getElementById('question-section');
+    questionSection.style.opacity = '0';
+    questionSection.style.transform = 'translateY(10px)';
+    
+    setTimeout(() => {
+        // Go to next question or show results
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            displayQuestion();
+            updateProgress();
+            
+            // Fade in the next question
+            requestAnimationFrame(() => {
+                questionSection.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                questionSection.style.opacity = '1';
+                questionSection.style.transform = 'translateY(0)';
+            });
+        } else {
+            showResults();
+        }
+    }, 200); // Shorter delay for better responsiveness
 }
 
 function displayQuestion() {
-    const question = questions[currentQuestion];
+    const questionContainer = document.getElementById('question-section');
     const questionText = document.getElementById('question-text');
     const optionsContainer = document.getElementById('options-container');
+    const questionNumber = document.getElementById('question-number');
     
-    // Fade out
+    // Update question number without heavy animation
+    questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    questionNumber.style.opacity = '0';
+    questionNumber.style.transform = 'translateY(-10px)';
+    
+    // Use requestAnimationFrame for smoother animations
+    requestAnimationFrame(() => {
+        questionNumber.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        questionNumber.style.opacity = '1';
+        questionNumber.style.transform = 'translateY(0)';
+    });
+    
+    // Clear previous options efficiently
+    optionsContainer.innerHTML = '';
+    
+    // Set question text with optimized animation
+    questionText.textContent = questions[currentQuestion].text;
     questionText.style.opacity = '0';
-    optionsContainer.style.opacity = '0';
+    questionText.style.transform = 'translateY(10px)';
     
-    setTimeout(() => {
-        questionText.textContent = question.text;
-        document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
-        
-        optionsContainer.innerHTML = '';
-        question.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.className = 'option-button w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors slide-in';
-            button.style.animationDelay = `${index * 0.1}s`;
-            button.textContent = option.text;
-            button.addEventListener('click', () => handleAnswer(option));
-            optionsContainer.appendChild(button);
-        });
-        
-        // Fade in
+    requestAnimationFrame(() => {
+        questionText.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         questionText.style.opacity = '1';
-        optionsContainer.style.opacity = '1';
-    }, 300);
+        questionText.style.transform = 'translateY(0)';
+    });
+    
+    // Create a document fragment for better performance
+    const fragment = document.createDocumentFragment();
+    
+    // Add options with optimized staggered animation
+    questions[currentQuestion].options.forEach((option, index) => {
+        const optionButton = document.createElement('button');
+        optionButton.className = 'option-button w-full text-left p-5 rounded-lg border border-gray-200 mb-4 flex items-center transform transition-transform duration-200 hover:shadow-md';
+        optionButton.innerHTML = `
+            <div class="mr-4 w-9 h-9 flex-shrink-0 rounded-full bg-blue-50 flex items-center justify-center text-blue-700 font-medium">
+                ${index + 1}
+            </div>
+            <span class="text-gray-700">${option.text}</span>
+        `;
+        
+        // Set initial style for animation
+        optionButton.style.opacity = '0';
+        optionButton.style.transform = 'translateX(20px)';
+        
+        // Add to fragment
+        fragment.appendChild(optionButton);
+        
+        // Setup event listener
+        optionButton.addEventListener('click', () => handleAnswer(option));
+        
+        // Schedule animation with minimal delay
+        setTimeout(() => {
+            optionButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            optionButton.style.opacity = '1';
+            optionButton.style.transform = 'translateX(0)';
+        }, index * 80); // Reduced delay for faster appearance
+    });
+    
+    // Append all options at once for better performance
+    optionsContainer.appendChild(fragment);
+    
+    // Hide next button until an option is selected
+    document.getElementById('next-button-container').classList.add('hide');
+    
+    // Reset selected option
+    selectedOption = null;
 }
 
 function updateProgress() {
@@ -734,10 +1044,21 @@ function updateProgress() {
 }
 
 function calculateScore() {
-    const totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
-    const maxPossible = questions.length * 2;
-    const minPossible = questions.length * -2;
-    const normalizedScore = ((totalScore - minPossible) / (maxPossible - minPossible)) * 100;
+    let totalScore = 0;
+    for (let i = 0; i < answers.length; i++) {
+        // Ensure we are accessing the score from the nested option object
+        if (answers[i] && answers[i].option && typeof answers[i].option.score === 'number') {
+            totalScore += answers[i].option.score;
+        } else {
+            console.warn(`Missing score for answer at index ${i}:`, answers[i]);
+        }
+    }
+    
+    // Normalize score to 0-100 range for the meter
+    // Theoretical min score is -40 (20 questions, min score -2 each)
+    // Theoretical max score is +40 (20 questions, max score +2 each)
+    const normalizedScore = ((totalScore + 40) / 80) * 100;
+    
     return {
         raw: totalScore,
         normalized: normalizedScore
@@ -745,48 +1066,149 @@ function calculateScore() {
 }
 
 function showResults() {
-    document.getElementById('quiz-container').classList.add('hide');
-    document.getElementById('results-section').classList.remove('hide');
+    // Hide quiz container without animation
+    const quizContainer = document.getElementById('quiz-container');
+    quizContainer.style.opacity = '0';
+    quizContainer.style.transform = 'translateY(20px)';
     
-    const score = calculateScore();
-    document.getElementById('meter-pointer').style.left = `${score.normalized}%`;
-    
-    const preferenceHeading = document.getElementById('preference-heading');
-    const preferenceDescription = document.getElementById('preference-description');
-    
-    if (score.normalized < 30) {
-        preferenceHeading.textContent = "Strong Preference for NPS";
-        preferenceDescription.textContent = "Your answers indicate a strong alignment with the National Pension System's features.";
-    } else if (score.normalized < 45) {
-        preferenceHeading.textContent = "Moderate Preference for NPS";
-        preferenceDescription.textContent = "You show a slight inclination towards NPS features while valuing some aspects of both systems.";
-    } else if (score.normalized > 70) {
-        preferenceHeading.textContent = "Strong Preference for UPS";
-        preferenceDescription.textContent = "Your answers strongly align with the Unified Pension Scheme's guaranteed benefits approach.";
-    } else if (score.normalized > 55) {
-        preferenceHeading.textContent = "Moderate Preference for UPS";
-        preferenceDescription.textContent = "You show a slight inclination towards UPS features while appreciating aspects of both systems.";
-    } else {
-        preferenceHeading.textContent = "Balanced Preference";
-        preferenceDescription.textContent = "You show a balanced view of both pension systems, appreciating features of both NPS and UPS.";
-    }
-    
-    displayDetailedAnalysis();
+    setTimeout(() => {
+        quizContainer.classList.add('hide');
+        
+        // Show results container with smooth animation
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.classList.remove('hide');
+        
+        // Force reflow before starting animation
+        void resultsSection.offsetWidth;
+        
+        // Start smooth fade-in
+        requestAnimationFrame(() => {
+            resultsSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            resultsSection.style.opacity = '1';
+            resultsSection.style.transform = 'translateY(0)';
+        });
+
+        const score = calculateScore();
+        const percentage = score.normalized; // Already normalized to 0-100 range
+        
+        // Create gauge marks
+        setTimeout(() => {
+            createGaugeMarks();
+            
+            // Animate the gauge needle based on the score
+            const gaugeNeedle = document.getElementById('gauge-needle');
+            const gaugeValue = document.getElementById('gauge-value');
+            
+            // Convert percentage to degrees. 
+            // UPS (high percentage, e.g., 100%) should be left (-90deg).
+            // NPS (low percentage, e.g., 0%) should be right (+90deg).
+            const degrees = 90 - (percentage / 100) * 180;
+            
+            // Set CSS variable for the angle
+            gaugeNeedle.style.setProperty('--needle-angle', `${degrees}deg`);
+            
+            // First set to starting position
+            gaugeNeedle.style.transition = 'none';
+            gaugeNeedle.style.transform = 'translateX(-50%) rotate(-90deg) translateZ(0)';
+            
+            // Force reflow
+            void gaugeNeedle.offsetWidth;
+            
+            // Then animate to final position with bounce
+            gaugeNeedle.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            gaugeNeedle.style.transform = `translateX(-50%) rotate(${degrees}deg) translateZ(0)`;
+            
+            // Apply bounce animation after the initial animation
+            setTimeout(() => {
+                gaugeNeedle.style.animation = 'bounce-needle 3s ease-in-out infinite';
+            }, 800);
+            
+            // Set the value immediately with correct formatting
+            gaugeValue.textContent = Math.abs(score.raw).toFixed(1);
+            
+            // Add fade-in for gauge value
+            gaugeValue.style.opacity = '0';
+            setTimeout(() => {
+                gaugeValue.style.transition = 'opacity 0.5s ease';
+                gaugeValue.style.opacity = '1';
+            }, 400);
+
+            // Determine and display preference message
+            const preferenceHeading = document.getElementById('preference-heading');
+            const preferenceDescription = document.getElementById('preference-description');
+            let leaning = "";
+            let descriptionText = "";
+
+            if (score.raw > 10) {
+                leaning = "Strongly Leaning Towards UPS";
+                descriptionText = "Your responses indicate a strong preference for the features and flexibility typically associated with the Universal Pension Scheme (UPS). This often includes portability, individual fund management, and market-linked returns.";
+            } else if (score.raw > 0) {
+                leaning = "Slightly Leaning Towards UPS";
+                descriptionText = "Your answers suggest a slight inclination towards the Universal Pension Scheme (UPS). You may value aspects like choice in fund management and potential for higher returns, while still considering some traditional benefits.";
+            } else if (score.raw < -10) {
+                leaning = "Strongly Leaning Towards NPS";
+                descriptionText = "Your responses show a strong preference for the characteristics of the National Pension System (NPS). This usually means valuing defined benefits, government backing, and potentially lower risk.";
+            } else if (score.raw < 0) {
+                leaning = "Slightly Leaning Towards NPS";
+                descriptionText = "Your answers indicate a slight preference for the National Pension System (NPS). You likely appreciate the security and defined aspects of traditional pension schemes.";
+            } else {
+                leaning = "Balanced View";
+                descriptionText = "Your responses suggest a balanced perspective, seeing benefits in both traditional and newer pension models. You may be exploring which features are most important to you.";
+            }
+            preferenceHeading.textContent = leaning;
+            preferenceDescription.textContent = descriptionText;
+
+            // Display detailed analysis of answers
+            displayDetailedAnalysis();
+
+        }, 300); // End of setTimeout for createGaugeMarks and subsequent animations
+    }, 300); // End of setTimeout for hiding quiz and showing results
 }
 
 function displayDetailedAnalysis() {
-    const container = document.getElementById('answers-container');
-    container.innerHTML = '';
-    
-    answers.forEach((answer, index) => {
-        const div = document.createElement('div');
-        div.className = 'p-4 bg-gray-50 rounded-lg';
-        div.innerHTML = `
-            <p class="font-semibold mb-2">Question ${index + 1}: ${answer.questionText}</p>
-            <p class="text-gray-700">Your choice: ${answer.selectedOption}</p>
-            <p class="text-gray-600 mt-2">${answer.description}</p>
-        `;
-        container.appendChild(div);
+    const answersContainer = document.getElementById('answers-container');
+    answersContainer.innerHTML = ''; // Clear previous analysis
+
+    if (!answers || answers.length === 0) {
+        answersContainer.innerHTML = '<p class="text-gray-600">No answers recorded yet.</p>';
+        return;
+    }
+
+    answers.forEach((answerData, index) => {
+        // The 'answers' array now directly stores the selected option object
+        const questionText = questions[answerData.questionIndex].text;
+        const selectedOption = answerData.option;
+
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'p-5 mb-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md border-l-4 border-blue-500 transition-all duration-300 hover:shadow-lg';
+        answerDiv.style.opacity = '0';
+        answerDiv.style.transform = 'translateY(10px)';
+        
+        // Staggered animation using requestAnimationFrame for smoothness
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                answerDiv.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                answerDiv.style.opacity = '1';
+                answerDiv.style.transform = 'translateY(0)';
+            });
+        }, index * 100);
+
+        const questionTitle = document.createElement('h4');
+        questionTitle.className = 'font-semibold text-lg text-blue-800 mb-2';
+        questionTitle.textContent = `Q${index + 1}: ${questionText}`;
+
+        const selectedOptionText = document.createElement('p');
+        selectedOptionText.className = 'text-gray-700 mb-1 text-md';
+        selectedOptionText.innerHTML = `<strong class="text-indigo-700">Your Choice:</strong> ${selectedOption.text}`;
+
+        const optionDescription = document.createElement('p');
+        optionDescription.className = 'text-sm text-gray-600 italic mt-2 pl-4 border-l-2 border-indigo-200';
+        optionDescription.textContent = selectedOption.description || 'This choice reflects a specific preference regarding pension scheme features.';
+
+        answerDiv.appendChild(questionTitle);
+        answerDiv.appendChild(selectedOptionText);
+        answerDiv.appendChild(optionDescription);
+        answersContainer.appendChild(answerDiv);
     });
 }
 
@@ -810,8 +1232,43 @@ function restartQuiz() {
     updateProgress();
 }
 
-// Initialize quiz when page loads
-window.addEventListener('load', initializeQuiz);
+// Create gauge marks function (simplified, no numbers)
+function createGaugeMarks() {
+    const marksContainer = document.getElementById('gauge-marks');
+    marksContainer.innerHTML = '';
+    
+    // Create 9 marks
+    for (let i = 0; i <= 8; i++) {
+        const mark = document.createElement('div');
+        mark.className = 'gauge-mark';
+        
+        // Calculate rotation (-90deg to 90deg)
+        const rotation = (i / 8) * 180 - 90;
+        mark.style.transform = `translateX(-50%) rotate(${rotation}deg) translateZ(0)`;
+        
+        // Make middle mark larger
+        if (i === 4) {
+            mark.style.height = '18px';
+            mark.style.width = '5px';
+            mark.style.opacity = '0.9';
+        }
+        
+        marksContainer.appendChild(mark);
+    }
+}
+
+// Initialize quiz when page loads with loading screen
+window.addEventListener('load', () => {
+    // Show loading screen for 2.5 seconds
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            initializeQuiz();
+        }, 500);
+    }, 2500);
+});
 
 // Initialize quiz
 function initializeQuiz() {
